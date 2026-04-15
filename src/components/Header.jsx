@@ -1,26 +1,22 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
 const IFOOD = 'https://www.ifood.com.br/delivery/paulinia-sp/a-dona-dos-quitutes---confeitaria-artesanal-jardim-america/84ab3b0f-1d9c-4676-9cd5-b750085f2a4c'
+const LOGO_IMAGE = '/logo-optimized.png'
 
-/* Whisk SVG — fiel ao original: corpo roxo, linhas internas roxas */
 function Whisk() {
   return (
     <svg className="whisk-svg" viewBox="0 0 44 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Cabo */}
-      <rect x="18" y="46" width="8" height="24" rx="4" fill="#96257c"/>
-      {/* Corpo oval */}
-      <ellipse cx="22" cy="28" rx="16" ry="20" fill="none" stroke="#96257c" strokeWidth="5"/>
-      {/* Fios internos */}
-      <path d="M12 10 Q17 28 12 46" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
-      <path d="M22 7  Q22 28 22 48" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
-      <path d="M32 10 Q27 28 32 46" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
+      <rect x="18" y="46" width="8" height="24" rx="4" fill="#96257c" />
+      <ellipse cx="22" cy="28" rx="16" ry="20" fill="none" stroke="#96257c" strokeWidth="5" />
+      <path d="M12 10 Q17 28 12 46" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+      <path d="M22 7 Q22 28 22 48" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+      <path d="M32 10 Q27 28 32 46" stroke="#96257c" strokeWidth="3.5" strokeLinecap="round" fill="none" />
     </svg>
   )
 }
 
-/* Logo CSS — recria a marca: Abril Fatface, amarelo + contorno roxo */
 function LogoCss() {
   return (
     <div className="logo-css">
@@ -35,15 +31,17 @@ function LogoCss() {
 
 function Logo() {
   const [imgErr, setImgErr] = useState(false)
+
   return (
-    <Link to="/" className="logo-link" aria-label="A Dona dos Quitutes — início">
+    <Link to="/" className="logo-link" aria-label="A Dona dos Quitutes - início">
       {imgErr ? (
         <LogoCss />
       ) : (
         <img
-          src="/logo.png"
+          src={LOGO_IMAGE}
           alt="A Dona dos Quitutes"
           className="logo-img"
+          decoding="async"
           onError={() => setImgErr(true)}
         />
       )}
@@ -53,6 +51,7 @@ function Logo() {
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+
   return (
     <header className="header">
       <div className="header-inner">
@@ -62,7 +61,10 @@ export default function Header() {
           <a
             href="#"
             className="nav-link"
-            onClick={e => { e.preventDefault(); alert('Cardápio em breve!') }}
+            onClick={(e) => {
+              e.preventDefault()
+              alert('Cardápio em breve!')
+            }}
           >
             Cardápio
           </a>
@@ -77,7 +79,7 @@ export default function Header() {
           </a>
         </nav>
 
-        <button className="burger" aria-label="Menu" onClick={() => setOpen(o => !o)}>
+        <button className="burger" aria-label="Menu" onClick={() => setOpen((value) => !value)}>
           <span /><span /><span />
         </button>
       </div>
