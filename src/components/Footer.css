@@ -14,28 +14,14 @@
 
 /* Brand */
 .footer-logo {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
   margin-bottom: 16px;
 }
 
-.footer-logo-top {
-  font-family: var(--font-body);
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  color: var(--yellow);
-  opacity: 0.6;
-  margin-bottom: 2px;
-}
-
-.footer-logo-main {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-weight: 900;
-  font-size: 34px;
-  color: var(--yellow);
+.footer-logo-img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
 }
 
 .footer-tagline {

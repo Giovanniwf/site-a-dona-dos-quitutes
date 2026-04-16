@@ -10,8 +10,13 @@ export default function Footer() {
 
         <div className="footer-brand">
           <div className="footer-logo">
-            <span className="footer-logo-top">A DONA DOS</span>
-            <span className="footer-logo-main">Quitutes</span>
+            <img
+              src="/logo.png"
+              alt="A Dona dos Quitutes"
+              className="footer-logo-img"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <p className="footer-tagline">Iguarias artesanais feitas com amor.</p>
         </div>
