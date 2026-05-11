@@ -33,7 +33,12 @@ function Logo() {
   const [imgErr, setImgErr] = useState(false)
 
   return (
-    <Link to="/" className="logo-link" aria-label="A Dona dos Quitutes - início">
+    <Link
+      to="/"
+      className="logo-link"
+      aria-label="A Dona dos Quitutes - início"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
       {imgErr ? (
         <LogoCss />
       ) : (

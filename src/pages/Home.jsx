@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
+import { WHATSAPP_LINK, WHATSAPP_NUMBER } from '../constants/contact'
 import './Home.css'
 import icone1 from '../assets/icone1.png'
 import icone2 from '../assets/icone2.png'
@@ -237,27 +238,15 @@ export default function Home() {
             <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
               <div className="contato-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </div>
-              <h3 className="contato-card-titulo">Endereço</h3>
-              <p>Rua Prates, 194</p>
-              <p>Bom Retiro — São Paulo, SP</p>
-            </div>
-
-            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
-              <div className="contato-card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.09 6.09l1.08-1.08a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
               </div>
-              <h3 className="contato-card-titulo">Telefone</h3>
-              <a href="tel:+551134567890">(11) 3456-7890</a>
-              <a href="mailto:info@meusite.com">info@meusite.com</a>
+              <h3 className="contato-card-titulo">WhatsApp</h3>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">{WHATSAPP_NUMBER}</a>
+              <p>Atendimento rapido por mensagem.</p>
             </div>
 
-            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
+            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
               <div className="contato-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -270,7 +259,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`contato-ifood anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '400ms' }}>
+          <div className={`contato-ifood anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
             <p className="contato-ifood-text">Prefere pedir pelo iFood?</p>
             <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-contato-ifood">
               Abrir no iFood

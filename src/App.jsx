@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import './App.css'
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/contato" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <WhatsAppButton />
       <Footer />
     </BrowserRouter>
   )
