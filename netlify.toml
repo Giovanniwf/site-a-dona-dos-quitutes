@@ -56,3 +56,4 @@
   from = "/logo.png"
   to = "/logo-optimized.png"
   status = 301
+  
