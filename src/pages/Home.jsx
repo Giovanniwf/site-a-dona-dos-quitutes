@@ -14,9 +14,9 @@ const ENTREGA_IMAGE = '/images/optimized/entrega.png'
 const SOBRE_IMAGE = '/images/optimized/sobre.png'
 
 const produtos = [
-  { src: '/images/optimized/produto1.jpg', alt: 'Trufa Crocante', nome: 'Trufa Crocante', desc: 'Camadas de chocolate com recheio surpreendente.' },
-  { src: '/images/optimized/produto2.jpg', alt: 'Bolo de Cenoura', nome: 'Bolo de Cenoura', desc: 'Fofinho por dentro, coberto com brigadeiro cremoso.' },
-  { src: '/images/optimized/produto3.jpg', alt: 'Cookie Recheado', nome: 'Cookie Recheado', desc: 'Crocante por fora, macio e surpreendente por dentro.' },
+  { src: '/images/cookies_variados.jpg', alt: 'Cookies Variados', nome: 'Cookies Variados', desc: 'Selecao de cookies artesanais com sabores irresistiveis.' },
+  { src: '/images/Brownie_Tradicional.jpg', alt: 'Brownie Tradicional', nome: 'Brownie Tradicional', desc: 'Macio por dentro, intenso no chocolate e perfeito a cada mordida.' },
+  { src: '/images/Pao_de_mel.jpg', alt: 'Pao de Mel', nome: 'Pao de Mel', desc: 'Massa macia e especiada com cobertura de chocolate deliciosa.' },
   { src: '/images/optimized/produto4.jpg', alt: 'Tortinha de Banana', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
 ]
 
