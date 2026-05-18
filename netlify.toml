@@ -1,4 +1,4 @@
-﻿[build]
+[build]
   publish = "dist"
   command = "npm run build"
 
@@ -56,4 +56,3 @@
   from = "/logo.png"
   to = "/logo-optimized.png"
   status = 301
-  
