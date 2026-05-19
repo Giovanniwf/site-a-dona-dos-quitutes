@@ -2,7 +2,7 @@
 import { useInView } from '../hooks/useInView'
 import './InstagramFeed.css'
 
-const BEHOLD_FEED_ID = 'SEU_FEED_ID_AQUI'
+const BEHOLD_FEED_ID = 'ZZyNgyjmRfiWMRB4mSly'
 const FALLBACK_POSTS = [
   { src: '/images/optimized/produto1.jpg', alt: 'Trufa Crocante' },
   { src: '/images/optimized/produto2.jpg', alt: 'Bolo de Cenoura' },

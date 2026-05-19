@@ -31,7 +31,7 @@ export default function Contato() {
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="info-link">
               {WHATSAPP_NUMBER}
             </a>
-            <p>Atendimento rapido por mensagem.</p>
+                <p>Atendimento por mensagem.</p>
           </div>
 
           <div className="info-card">
