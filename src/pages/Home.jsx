@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+﻿import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
@@ -38,17 +38,19 @@ const cards = [
   },
 ]
 
-function ProductCard({ src, alt, nome, desc, delay = 0 }) {
+function ProductCard({ src, alt, nome, desc, delay = 0, clone = false }) {
   const [err, setErr] = useState(false)
-  const [ref, inView] = useInView()
 
   return (
-    <div ref={ref} className={`product-card anim-up ${inView ? 'visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div
+      className={`product-card ${clone ? 'product-card--clone' : ''}`}
+      aria-hidden={clone}
+    >
       <div className="product-img-wrap">
         {!err ? (
           <img
             src={src}
-            alt={alt}
+            alt={clone ? '' : alt}
             className="product-img"
             loading="lazy"
             decoding="async"
@@ -69,12 +71,116 @@ function ProductCard({ src, alt, nome, desc, delay = 0 }) {
 export default function Home() {
   const [heroErr, setHeroErr] = useState(false)
   const [entregaErr, setEntregaErr] = useState(false)
+  const [activeCfCard, setActiveCfCard] = useState(0)
+  const [touchStartX, setTouchStartX] = useState(null)
+  const productsMarqueeRef = useRef(null)
+  const productsInteractingRef = useRef(false)
+  const productsResumeTimeoutRef = useRef(null)
 
   const [cfRef, cfInView] = useInView()
   const [prodRef, prodInView] = useInView()
   const [entRef, entInView] = useInView()
   const [sobreRef, sobreInView] = useInView()
   const [contatoRef, contatoInView] = useInView()
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setActiveCfCard((current) => (current + 1) % cards.length)
+    }, 3000)
+
+    return () => window.clearTimeout(timer)
+  }, [activeCfCard])
+
+  useEffect(() => {
+    const container = productsMarqueeRef.current
+    if (!container) return undefined
+    let animationFrameId = null
+    let previousTime = 0
+    const speed = 0.11
+    const getLoopPoint = () => container.scrollWidth / 3
+
+    const resetToMiddleIfNeeded = () => {
+      const loopPoint = getLoopPoint()
+
+      if (container.scrollLeft <= 0) {
+        container.scrollLeft += loopPoint
+      } else if (container.scrollLeft >= loopPoint * 2) {
+        container.scrollLeft -= loopPoint
+      }
+    }
+
+    container.scrollLeft = getLoopPoint()
+
+    const step = (time) => {
+      if (!previousTime) previousTime = time
+      const delta = time - previousTime
+      previousTime = time
+
+      if (window.innerWidth <= 480 && !productsInteractingRef.current) {
+        container.scrollLeft += delta * speed
+        resetToMiddleIfNeeded()
+      }
+
+      animationFrameId = window.requestAnimationFrame(step)
+    }
+
+    animationFrameId = window.requestAnimationFrame(step)
+    container.addEventListener('scroll', resetToMiddleIfNeeded, { passive: true })
+
+    return () => {
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
+      container.removeEventListener('scroll', resetToMiddleIfNeeded)
+      if (productsResumeTimeoutRef.current) {
+        window.clearTimeout(productsResumeTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const pauseProductsMarquee = () => {
+    productsInteractingRef.current = true
+    if (productsResumeTimeoutRef.current) {
+      window.clearTimeout(productsResumeTimeoutRef.current)
+    }
+  }
+
+  const resumeProductsMarquee = () => {
+    if (productsResumeTimeoutRef.current) {
+      window.clearTimeout(productsResumeTimeoutRef.current)
+    }
+
+    productsResumeTimeoutRef.current = window.setTimeout(() => {
+      productsInteractingRef.current = false
+    }, 80)
+  }
+
+  const showPrevCfCard = () => {
+    setActiveCfCard((current) => (current - 1 + cards.length) % cards.length)
+  }
+
+  const showNextCfCard = () => {
+    setActiveCfCard((current) => (current + 1) % cards.length)
+  }
+
+  const handleCfTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX)
+  }
+
+  const handleCfTouchEnd = (event) => {
+    if (touchStartX === null) return
+
+    const touchEndX = event.changedTouches[0].clientX
+    const deltaX = touchStartX - touchEndX
+
+    if (Math.abs(deltaX) > 40) {
+      if (deltaX > 0) {
+        showNextCfCard()
+      } else {
+        showPrevCfCard()
+      }
+    }
+
+    setTouchStartX(null)
+  }
 
   return (
     <div className="home">
@@ -122,17 +228,34 @@ export default function Home() {
       </section>
 
       <section className="como-funciona" ref={cfRef}>
-        <div className="cf-grid">
+        <div
+          className="cf-carousel"
+          onTouchStart={handleCfTouchStart}
+          onTouchEnd={handleCfTouchEnd}
+        >
+          <div className="cf-grid" style={{ '--cf-active-index': activeCfCard }}>
+            {cards.map((card, index) => (
+              <div
+                key={card.titulo}
+                className={`cf-card anim-up ${cfInView ? 'visible' : ''} ${activeCfCard === index ? 'is-active' : ''}`}
+                style={{ transitionDelay: `${index * 120}ms` }}
+              >
+                <div className="cf-icon">{card.icon}</div>
+                <h3 className="cf-titulo">{card.titulo.toUpperCase()}</h3>
+                <p className="cf-desc">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="cf-dots" aria-label="Navegação dos cards">
           {cards.map((card, index) => (
-            <div
+            <button
               key={card.titulo}
-              className={`cf-card anim-up ${cfInView ? 'visible' : ''}`}
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="cf-icon">{card.icon}</div>
-              <h3 className="cf-titulo">{card.titulo.toUpperCase()}</h3>
-              <p className="cf-desc">{card.desc}</p>
-            </div>
+              type="button"
+              className={`cf-dot ${activeCfCard === index ? 'is-active' : ''}`}
+              onClick={() => setActiveCfCard(index)}
+              aria-label={`Mostrar card ${index + 1}`}
+            />
           ))}
         </div>
       </section>
@@ -146,10 +269,26 @@ export default function Home() {
               Uma pequena amostra do que preparamos com amor todos os dias.
             </p>
           </div>
-          <div className="produtos-grid">
-            {produtos.map((produto, index) => (
-              <ProductCard key={produto.nome} {...produto} delay={index * 100} />
-            ))}
+          <div
+            ref={productsMarqueeRef}
+            className="produtos-marquee"
+            onTouchStart={pauseProductsMarquee}
+            onTouchEnd={resumeProductsMarquee}
+            onMouseDown={pauseProductsMarquee}
+            onMouseUp={resumeProductsMarquee}
+            onMouseLeave={resumeProductsMarquee}
+          >
+            <div className="produtos-grid">
+              {produtos.map((produto, index) => (
+                <ProductCard key={`${produto.nome}-clone-start`} {...produto} delay={index * 100} clone />
+              ))}
+              {produtos.map((produto, index) => (
+                <ProductCard key={produto.nome} {...produto} delay={index * 100} />
+              ))}
+              {produtos.map((produto, index) => (
+                <ProductCard key={`${produto.nome}-clone-end`} {...produto} delay={index * 100} clone />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -208,7 +347,7 @@ export default function Home() {
               Estamos no coração de São Paulo, prontos para tornar qualquer
               momento mais doce e especial.
             </p>
-            <Link to="/contato" className="btn-sobre">Onde nos encontrar →</Link>
+            <a href="#contato" className="btn-sobre">Onde nos encontrar →</a>
           </div>
         </div>
       </section>
