@@ -85,7 +85,7 @@ export default function Home() {
             Sabor que<br />surpreende
           </h1>
           <p className="hero-sub">
-            Iguarias artesanais preparadas com muito carinho,
+            Quitutes artesanais preparados com muito carinho,
             para adoçar cada momento especial.
           </p>
           <div className="hero-actions hero-anim-up">
