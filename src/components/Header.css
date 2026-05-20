@@ -1,5 +1,22 @@
 .header {
+  --header-bg-position-x: center;
+  --header-bg-position-y: 40%;
+  --header-bg-size: 100%;
+  --header-mobile-bg-position-x: center;
+  --header-mobile-bg-position-y: center;
+  --header-mobile-bg-size: cover;
+  /* Ajuste o corte aqui:
+     --header-bg-position-y: 35%;
+     --header-bg-size: 115%;
+  */
+}
+
+.header {
   background-color: #ffffff;
+  background-image: url('/images/Fundo_Branco_ADDQ.png');
+  background-position: var(--header-bg-position-x) var(--header-bg-position-y);
+  background-repeat: no-repeat;
+  background-size: var(--header-bg-size);
   border-bottom: 2px solid var(--yellow);
   position: sticky;
   top: 0;
@@ -153,6 +170,10 @@
     top: 100%;
     left: 0; right: 0;
     background-color: #ffffff;
+    background-image: url('/images/Fundo_Branco_ADDQ.png');
+    background-position: var(--header-mobile-bg-position-x) var(--header-mobile-bg-position-y);
+    background-repeat: no-repeat;
+    background-size: var(--header-mobile-bg-size);
     border-top: 2px solid var(--yellow);
     flex-direction: column;
     align-items: flex-start;

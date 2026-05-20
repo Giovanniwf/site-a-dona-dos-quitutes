@@ -43,19 +43,40 @@
   50% { transform: scale(1.015) translateY(15px); }
 }
 @keyframes cookiePulse {
-  0%, 100% { transform: scale(1) translateY(0); }
-  50%       { transform: scale(1.09) translateY(-8px); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-8px) scale(1.09); }
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HERO
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero {
+  --hero-cake-frame-offset-y: 10px;
+  --hero-cake-image-offset-y: 0px;
+  --hero-cake-height: 580px;
   background-color: var(--yellow);
   display: flex;
+  position: relative;
   align-items: center;
-  min-height: 520px;
+  min-height: max(520px, calc(100svh - 84px));
   overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background-image: url('/images/Fundo_Amarelo_ADDQ.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(1px);
+  transform: scale(1.03);
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-anim-left {
@@ -69,11 +90,24 @@
 }
 
 .hero-text {
+  --hero-text-blur: 20px;
   flex: 1 1 50%;
   padding: 80px 56px 80px 64px;
   max-width: 620px;
   position: relative;
   z-index: 2;
+}
+
+.hero-text::before {
+  content: '';
+  position: absolute;
+  inset: 22px 12px 22px 18px;
+  border-radius: 28px;
+  background: rgba(255, 248, 228, 0.24);
+  backdrop-filter: blur(var(--hero-text-blur));
+  -webkit-backdrop-filter: blur(var(--hero-text-blur));
+  box-shadow: 0 18px 42px rgba(45, 10, 67, 0.08);
+  z-index: -1;
 }
 
 .hero-eyebrow {
@@ -154,15 +188,19 @@
 
 .hero-img-wrap {
   flex: 1 1 50%;
-  height: 520px;
+  height: var(--hero-cake-height);
   overflow: hidden;
+  position: relative;
+  align-self: flex-end;
+  margin-bottom: calc(var(--hero-cake-frame-offset-y) * -1);
 }
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 55%;
+  object-position: center calc(55% + var(--hero-cake-image-offset-y));
   animation: cookiePulse 4s ease-in-out 1s infinite;
+  will-change: transform;
 }
 .hero-img-fallback {
   width: 100%; height: 100%;
@@ -787,8 +825,9 @@
 }
 
 @media (max-width: 700px) {
-  .hero { flex-direction: column; min-height: auto; }
+  .hero { flex-direction: column; min-height: calc(100svh - 76px); }
   .hero-text { padding: 52px 24px 36px; max-width: 100%; }
+  .hero-text::before { inset: 14px 10px 8px; }
   .hero-img-wrap { display: none; }
   .hero-actions { flex-direction: row; }
   .btn-hero-primary, .btn-hero-secondary { justify-content: center; flex: 1 1 0; padding: 13px 16px; }

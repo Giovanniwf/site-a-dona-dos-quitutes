@@ -14,7 +14,7 @@ const ENTREGA_IMAGE = '/images/optimized/entrega.png'
 const SOBRE_IMAGE = '/images/optimized/sobre.png'
 
 const produtos = [
-  { src: '/images/cookies_variados.jpg', alt: 'Cookies Variados', nome: 'Cookies Variados', desc: 'Selecao de cookies artesanais com sabores irresistiveis.' },
+  { src: '/images/cookies_variados.jpg', alt: 'Cookies Variados', nome: 'Cookies Variados', desc: 'Cookies artesanais recheados com sabores irresistiveis!' },
   { src: '/images/Brownie_Tradicional.jpg', alt: 'Brownie Tradicional', nome: 'Brownie Tradicional', desc: 'Macio por dentro, intenso no chocolate e perfeito a cada mordida.' },
   { src: '/images/Pao_de_mel.jpg', alt: 'Pão de Mel', nome: 'Pão de Mel', desc: 'Massa macia e especiada com cobertura de chocolate deliciosa.' },
   { src: '/images/optimized/produto4.jpg', alt: 'Tortinha de Banana', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
@@ -312,7 +312,7 @@ export default function Home() {
           <p className="entregas-subtitulo">Saboreie a conveniência</p>
           <p className="entregas-desc">
             Desfrute da praticidade de receber os nossos quitutes no conforto do seu lar.
-            Faça agora o seu pedido e tenha uma experiência única.
+            Faça agora o seu pedido e saboreie quitutes deliciosos.
           </p>
           <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-entregas">
             Fazer Pedido
@@ -344,8 +344,7 @@ export default function Home() {
               ingredientes frescos e muito amor, do início ao fim.
             </p>
             <p className="sobre-desc">
-              Estamos no coração de São Paulo, prontos para tornar qualquer
-              momento mais doce e especial.
+              Estamos prontos para tornar o seu dia mais doce e especial.
             </p>
             <a href="#contato" className="btn-sobre">Onde nos encontrar →</a>
           </div>
