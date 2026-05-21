@@ -16,7 +16,7 @@ const SOBRE_IMAGE = '/images/optimized/sobre.png'
 const produtos = [
   { src: '/images/cookies_variados.jpg', alt: 'Cookies Variados', nome: 'Cookies Variados', desc: 'Cookies artesanais recheados com sabores irresistiveis!' },
   { src: '/images/Brownie_Tradicional.jpg', alt: 'Brownie Tradicional', nome: 'Brownie Tradicional', desc: 'Macio por dentro, intenso no chocolate e perfeito a cada mordida.' },
-  { src: '/images/Pao_de_mel.jpg', alt: 'Pão de Mel', nome: 'Pão de Mel', desc: 'Massa macia e especiada com cobertura de chocolate deliciosa.' },
+  { src: '/images/Pao_de_mel.jpg', alt: 'Pão de Mel', nome: 'Pão de Mel', desc: 'Massa macia e recheio cremoso, com cobertura de chocolate deliciosa.' },
   { src: '/images/optimized/produto4.jpg', alt: 'Tortinha de Banana', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
 ]
 
