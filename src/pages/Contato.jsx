@@ -19,10 +19,10 @@ export default function Contato() {
           <div className="info-card">
             <div className="info-icon">🕐</div>
             <h3 className="info-label">Horarios</h3>
-            <p>Segunda a sexta</p>
-            <p className="info-hora">11:00 as 22:00</p>
-            <p>Sabado e domingo</p>
-            <p className="info-hora">11:00 as 24:00</p>
+            <p>Domingo a quinta</p>
+            <p className="info-hora">8 as 21</p>
+            <p>Sexta e sabado</p>
+            <p className="info-hora">8 as 23</p>
           </div>
 
           <div className="info-card">
