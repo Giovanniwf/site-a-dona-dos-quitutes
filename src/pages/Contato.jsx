@@ -18,11 +18,9 @@ export default function Contato() {
         <div className="contato-grid">
           <div className="info-card">
             <div className="info-icon">🕐</div>
-            <h3 className="info-label">Horarios</h3>
-            <p>Domingo a quinta</p>
-            <p className="info-hora">8 as 21</p>
-            <p>Sexta e sabado</p>
-            <p className="info-hora">8 as 23</p>
+            <h3 className="info-label">Horários</h3>
+            <p>Dom – Qui: 8h às 21h</p>
+            <p>Sex – Sáb: 8h às 23h</p>
           </div>
 
           <div className="info-card">

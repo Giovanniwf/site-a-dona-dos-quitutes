@@ -369,8 +369,8 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="contato-card-titulo">Horários</h3>
-              <p>Seg – Sex: 11h às 22h</p>
-              <p>Sáb – Dom: 11h às 24h</p>
+              <p>Dom – Qui: 8h às 21h</p>
+              <p>Sex – Sáb: 8h às 23h</p>
             </div>
 
             <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
