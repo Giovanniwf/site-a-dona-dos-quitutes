@@ -64,12 +64,10 @@ export default function Header() {
 
         <nav className={`nav ${open ? 'nav--open' : ''}`}>
           <a
-            href="#"
+            href="/cardapio.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="nav-link"
-            onClick={(e) => {
-              e.preventDefault()
-              alert('Cardápio em breve!')
-            }}
           >
             Cardápio
           </a>

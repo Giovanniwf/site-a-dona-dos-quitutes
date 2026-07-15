@@ -43,15 +43,15 @@
   50% { transform: scale(1.015) translateY(15px); }
 }
 @keyframes cookiePulse {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%      { transform: translateY(-8px) scale(1.09); }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HERO
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero {
-  --hero-cake-frame-offset-y: 10px;
+  --hero-cake-frame-offset-y: 28px;
   --hero-cake-image-offset-y: 0px;
   --hero-cake-height: 580px;
   background-color: var(--yellow);
@@ -190,14 +190,15 @@
   position: relative;
   align-self: flex-end;
   margin-bottom: calc(var(--hero-cake-frame-offset-y) * -1);
+  animation: cookiePulse 4s ease-in-out 1s infinite;
+  will-change: transform;
 }
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center calc(55% + var(--hero-cake-image-offset-y));
-  animation: cookiePulse 4s ease-in-out 1s infinite;
-  will-change: transform;
+  transform: scale(1.25) translateX(60px);
 }
 .hero-img-fallback {
   width: 100%; height: 100%;

@@ -199,12 +199,10 @@ export default function Home() {
               Pedir pelo iFood
             </a>
             <a
-              href="#"
+              href="/cardapio.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-hero-secondary"
-              onClick={(e) => {
-                e.preventDefault()
-                alert('Cardápio em breve!')
-              }}
             >
               Ver o Cardápio
             </a>
