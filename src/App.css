@@ -1,4 +1,4 @@
-﻿/* App-level reset: all styling lives in component CSS files */
+/* App-level reset: all styling lives in component CSS files */
 
 .app-splash {
   position: fixed;
@@ -7,8 +7,8 @@
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at center, rgba(255, 221, 109, 0.28) 0%, rgba(255, 221, 109, 0) 45%),
-    #ffffff;
+    radial-gradient(circle at center, rgba(204, 132, 23, 0.22) 0%, rgba(204, 132, 23, 0) 48%),
+    var(--cream-light);
   transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
@@ -34,13 +34,13 @@
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(252, 212, 74, 0.55) 0%, rgba(252, 212, 74, 0) 72%);
+  background: radial-gradient(circle, rgba(204, 132, 23, 0.4) 0%, rgba(204, 132, 23, 0) 72%);
   animation: splashPulse 1.1s ease-out forwards;
 }
 
 .app-splash-logo {
   position: relative;
-  width: min(360px, 74vw);
+  width: min(300px, 66vw);
   height: auto;
   animation: splashReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

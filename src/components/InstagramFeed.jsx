@@ -75,7 +75,7 @@ export default function InstagramFeed() {
 
   return (
     <section className="instagram" ref={ref}>
-      <div className="section-wrap">
+      <div className="section-shell">
         <div className={`instagram-head anim-up ${inView ? 'visible' : ''}`}>
           <h2 className="insta-titulo">
             Siga{' '}

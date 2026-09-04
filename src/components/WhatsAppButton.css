@@ -1,52 +1,62 @@
+/* botao flutuante redondo, so com o icone do WhatsApp */
 .whatsapp-float {
   position: fixed;
   right: 20px;
   bottom: 20px;
   z-index: 1200;
+  width: 58px;
+  height: 58px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  border-radius: 999px;
+  justify-content: center;
+  border-radius: 50%;
   background: #25d366;
   color: #ffffff;
-  box-shadow: 0 18px 34px rgba(37, 211, 102, 0.28);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.36);
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 .whatsapp-float:hover {
   background: #1fb657;
-  transform: translateY(-3px);
-  box-shadow: 0 22px 38px rgba(37, 211, 102, 0.34);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 32px rgba(37, 211, 102, 0.42);
 }
 
 .whatsapp-float-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.16);
-  flex-shrink: 0;
 }
 
 .whatsapp-float-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
 
+/* o rotulo continua no HTML para leitores de tela */
 .whatsapp-float-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 640px) {
   .whatsapp-float {
     right: 14px;
     bottom: 14px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .whatsapp-float-icon svg {
+    width: 28px;
+    height: 28px;
   }
 }

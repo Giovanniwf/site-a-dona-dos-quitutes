@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Viktor Script';
+  src: url('/fonts/viktor-script.woff') format('woff'),
+       url('/fonts/viktor-script.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -5,22 +14,31 @@
 }
 
 :root {
-  --yellow:  #fbd658;
-  --purple:  #96257c;
-  --dark:    #2d0a43;
-  --cream:   #fffdef;
-  --orange:  #ffa719;
+  /* Paleta da marca (amostrada das exportações oficiais) */
+  --purple:       #5d1360;
+  --purple-deep:  #4b0d4e;
+  --purple-soft:  #7a2a7d;
+  --gold:         #cc8417;
+  --gold-dark:    #b0710f;
+  --cream:        #f0dfc4;
+  --cream-light:  #faf2e6;
+  --white:        #ffffff;
+  --pink:         #ff13a9;
 
-  --font-heading: 'Playfair Display', serif;
-  --font-body:    'Nunito', sans-serif;
+  --font-script: 'Viktor Script', 'Brush Script MT', cursive;
+  --font-body:   'Nunito', system-ui, -apple-system, sans-serif;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --shell: 1180px;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--cream);
-  color: var(--dark);
+  background-color: var(--cream-light);
+  color: var(--purple);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -32,4 +50,95 @@ img { display: block; max-width: 100%; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* ---------- Tipografia compartilhada ---------- */
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.section-shell {
+  width: min(100% - 40px, var(--shell));
+  margin-inline: auto;
+}
+
+/* ---------- Botões ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.98rem;
+  line-height: 1;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn--purple {
+  background: var(--purple);
+  color: var(--cream);
+  box-shadow: 0 10px 22px rgba(93, 19, 96, 0.25);
+}
+.btn--purple:hover { background: var(--purple-deep); }
+
+.btn--gold {
+  background: var(--gold);
+  color: var(--white);
+  box-shadow: 0 10px 22px rgba(204, 132, 23, 0.28);
+}
+.btn--gold:hover { background: var(--gold-dark); }
+
+.btn--cream {
+  background: var(--cream-light);
+  color: var(--purple);
+  border-color: var(--gold);
+}
+.btn--cream:hover { background: var(--white); }
+
+.btn--white {
+  background: var(--white);
+  color: var(--purple);
+}
+
+.btn--ghost-cream {
+  background: transparent;
+  color: var(--cream);
+  border-color: var(--cream);
+}
+.btn--ghost-cream:hover { background: var(--cream); color: var(--purple); }
+
+/* ---------- Animações de entrada ---------- */
+
+.anim-up, .anim-left, .anim-right {
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anim-up    { transform: translateY(32px); }
+.anim-left  { transform: translateX(-36px); }
+.anim-right { transform: translateX(36px); }
+
+.anim-up.visible, .anim-left.visible, .anim-right.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .anim-up, .anim-left, .anim-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

@@ -1,81 +1,81 @@
-﻿import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
-import { WHATSAPP_LINK, WHATSAPP_NUMBER } from '../constants/contact'
+import {
+  IFOOD_LINK,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_LINK,
+  WHATSAPP_LINK,
+  WHATSAPP_NUMBER,
+} from '../constants/contact'
 import './Home.css'
-import icone1 from '../assets/icone1.png'
-import icone2 from '../assets/icone2.png'
-import icone3 from '../assets/icone3.png'
 
-const IFOOD = 'https://www.ifood.com.br/delivery/paulinia-sp/a-dona-dos-quitutes---confeitaria-artesanal-jardim-america/84ab3b0f-1d9c-4676-9cd5-b750085f2a4c'
-const HERO_IMAGE = '/images/optimized/hero-torta.png'
-const ENTREGA_IMAGE = '/images/optimized/entrega.png'
-const SOBRE_IMAGE = '/images/optimized/sobre.png'
-
-const produtos = [
-  { src: '/images/cookies_variados.jpg', alt: 'Cookies Variados', nome: 'Cookies Variados', desc: 'Cookies artesanais recheados com sabores irresistiveis!' },
-  { src: '/images/Brownie_Tradicional.jpg', alt: 'Brownie Tradicional', nome: 'Brownie Tradicional', desc: 'Macio por dentro, intenso no chocolate e perfeito a cada mordida.' },
-  { src: '/images/Pao_de_mel.jpg', alt: 'Pão de Mel', nome: 'Pão de Mel', desc: 'Massa macia e recheio cremoso, com cobertura de chocolate deliciosa.' },
-  { src: '/images/optimized/produto4.jpg', alt: 'Tortinha de Banana', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
+const heroSlides = [
+  // "cheio" = recorte sem fundo, ocupa toda a area; as fotos entram menores, coladas embaixo/direita
+  { src: '/images/brand/cookie.png', alt: 'Cookie recheado com chocolate branco', cheio: true },
+  { src: '/images/brand/brigadeiro.png', alt: 'Brigadeiro artesanal' },
+  { src: '/images/brand/morango.png', alt: 'Doce de morango' },
 ]
 
 const cards = [
   {
-    icon: <img src={icone1} className="icon" alt="" loading="lazy" decoding="async" />,
+    icon: '/images/brand/icone1.png',
     titulo: 'Faça seu pedido online',
     desc: 'Peça seus quitutes favoritos de forma rápida e prática, sem sair de casa.',
   },
   {
-    icon: <img src={icone2} className="icon" alt="" loading="lazy" decoding="async" />,
+    icon: '/images/brand/icone2.png',
     titulo: 'Receba no conforto do seu lar',
     desc: 'Realizamos entregas rápidas e seguras para que você possa desfrutar dos nossos quitutes no conforto da sua casa.',
   },
   {
-    icon: <img src={icone3} className="icon" alt="" loading="lazy" decoding="async" />,
+    icon: '/images/brand/icone3.png',
     titulo: 'Saboreie cada momento',
     desc: 'Aproveite nossos quitutes fresquinhos, feitos com carinho, para tornar seu dia ainda mais especial.',
   },
 ]
 
-function ProductCard({ src, alt, nome, desc, delay = 0, clone = false }) {
+const produtos = [
+  { src: '/images/cookies_variados.jpg', nome: 'Cookies Variados', desc: 'Cookies artesanais recheados com sabores irresistíveis!' },
+  { src: '/images/Brownie_Tradicional.jpg', nome: 'Brownie Tradicional', desc: 'Macio por dentro, intenso no chocolate e perfeito a cada mordida.' },
+  { src: '/images/Pao_de_mel.jpg', nome: 'Pão de Mel', desc: 'Massa macia e recheio cremoso, com cobertura de chocolate deliciosa.' },
+  { src: '/images/optimized/produto4.jpg', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
+]
+
+function emBreve(event) {
+  event.preventDefault()
+  window.alert('Cardápio em breve!')
+}
+
+function ProductCard({ src, nome, desc }) {
   const [err, setErr] = useState(false)
 
   return (
-    <div
-      className={`product-card ${clone ? 'product-card--clone' : ''}`}
-      aria-hidden={clone}
-    >
-      <div className="product-img-wrap">
+    <article className="produto-card">
+      <div className="produto-img-wrap">
         {!err ? (
           <img
             src={src}
-            alt={clone ? '' : alt}
-            className="product-img"
+            alt={nome}
+            className="produto-img"
             loading="lazy"
             decoding="async"
             onError={() => setErr(true)}
           />
         ) : (
-          <div className="product-img-placeholder"><span>🍬</span></div>
+          <div className="produto-img-fallback"><span>🍪</span></div>
         )}
       </div>
-      <div className="product-info">
-        <h3 className="product-nome">{nome}</h3>
-        <p className="product-desc">{desc}</p>
+      <div className="produto-info">
+        <h3 className="produto-nome">{nome}</h3>
+        <p className="produto-desc">{desc}</p>
       </div>
-    </div>
+    </article>
   )
 }
 
 export default function Home() {
-  const [heroErr, setHeroErr] = useState(false)
-  const [entregaErr, setEntregaErr] = useState(false)
-  const [activeCfCard, setActiveCfCard] = useState(0)
-  const [touchStartX, setTouchStartX] = useState(null)
-  const productsMarqueeRef = useRef(null)
-  const productsInteractingRef = useRef(false)
-  const productsResumeTimeoutRef = useRef(null)
+  const [slide, setSlide] = useState(0)
 
   const [cfRef, cfInView] = useInView()
   const [prodRef, prodInView] = useInView()
@@ -85,338 +85,226 @@ export default function Home() {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setActiveCfCard((current) => (current + 1) % cards.length)
-    }, 3000)
+      setSlide((current) => (current + 1) % heroSlides.length)
+    }, 4200)
 
     return () => window.clearTimeout(timer)
-  }, [activeCfCard])
-
-  useEffect(() => {
-    const container = productsMarqueeRef.current
-    if (!container) return undefined
-    let animationFrameId = null
-    let previousTime = 0
-    const speed = 0.11
-    const getLoopPoint = () => container.scrollWidth / 3
-
-    const resetToMiddleIfNeeded = () => {
-      const loopPoint = getLoopPoint()
-
-      if (container.scrollLeft <= 0) {
-        container.scrollLeft += loopPoint
-      } else if (container.scrollLeft >= loopPoint * 2) {
-        container.scrollLeft -= loopPoint
-      }
-    }
-
-    container.scrollLeft = getLoopPoint()
-
-    const step = (time) => {
-      if (!previousTime) previousTime = time
-      const delta = time - previousTime
-      previousTime = time
-
-      if (window.innerWidth <= 480 && !productsInteractingRef.current) {
-        container.scrollLeft += delta * speed
-        resetToMiddleIfNeeded()
-      }
-
-      animationFrameId = window.requestAnimationFrame(step)
-    }
-
-    animationFrameId = window.requestAnimationFrame(step)
-    container.addEventListener('scroll', resetToMiddleIfNeeded, { passive: true })
-
-    return () => {
-      if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
-      container.removeEventListener('scroll', resetToMiddleIfNeeded)
-      if (productsResumeTimeoutRef.current) {
-        window.clearTimeout(productsResumeTimeoutRef.current)
-      }
-    }
-  }, [])
-
-  const pauseProductsMarquee = () => {
-    productsInteractingRef.current = true
-    if (productsResumeTimeoutRef.current) {
-      window.clearTimeout(productsResumeTimeoutRef.current)
-    }
-  }
-
-  const resumeProductsMarquee = () => {
-    if (productsResumeTimeoutRef.current) {
-      window.clearTimeout(productsResumeTimeoutRef.current)
-    }
-
-    productsResumeTimeoutRef.current = window.setTimeout(() => {
-      productsInteractingRef.current = false
-    }, 80)
-  }
-
-  const showPrevCfCard = () => {
-    setActiveCfCard((current) => (current - 1 + cards.length) % cards.length)
-  }
-
-  const showNextCfCard = () => {
-    setActiveCfCard((current) => (current + 1) % cards.length)
-  }
-
-  const handleCfTouchStart = (event) => {
-    setTouchStartX(event.touches[0].clientX)
-  }
-
-  const handleCfTouchEnd = (event) => {
-    if (touchStartX === null) return
-
-    const touchEndX = event.changedTouches[0].clientX
-    const deltaX = touchStartX - touchEndX
-
-    if (Math.abs(deltaX) > 40) {
-      if (deltaX > 0) {
-        showNextCfCard()
-      } else {
-        showPrevCfCard()
-      }
-    }
-
-    setTouchStartX(null)
-  }
+  }, [slide])
 
   return (
     <div className="home">
+      {/* ---------------- HERO ---------------- */}
       <section className="hero">
-        <div className="hero-text hero-anim-left">
-          <p className="hero-eyebrow">Conheça a Dona dos Quitutes</p>
-          <h1 className="hero-title">
-            Sabor que<br />surpreende
-          </h1>
-          <p className="hero-sub">
-            Quitutes artesanais preparados com muito carinho,
-            para adoçar cada momento especial.
-          </p>
-          <div className="hero-actions hero-anim-up">
-            <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-hero-primary">
-              Pedir pelo iFood
-            </a>
-            <a
-              href="#"
-              className="btn-hero-secondary"
-              onClick={(e) => {
-                e.preventDefault()
-                alert('Cardápio em breve!')
-              }}
-            >
-              Ver o Cardápio
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-img-wrap hero-anim-right">
-          {!heroErr ? (
+        <div className="hero-visual">
+          {heroSlides.map((item, index) => (
             <img
-              src={HERO_IMAGE}
-              alt="Torta artesanal"
-              className="hero-img"
-              fetchPriority="high"
+              key={item.src}
+              src={item.src}
+              alt={item.alt}
+              className={`hero-img ${item.cheio ? '' : 'hero-img--foto'} ${slide === index ? 'is-active' : ''}`}
+              fetchPriority={index === 0 ? 'high' : 'low'}
+              loading={index === 0 ? 'eager' : 'lazy'}
               decoding="async"
-              onError={() => setHeroErr(true)}
             />
-          ) : (
-            <div className="hero-img-fallback">🍪</div>
-          )}
+          ))}
         </div>
-      </section>
 
-      <section className="como-funciona" ref={cfRef}>
-        <div
-          className="cf-carousel"
-          onTouchStart={handleCfTouchStart}
-          onTouchEnd={handleCfTouchEnd}
-        >
-          <div className="cf-grid" style={{ '--cf-active-index': activeCfCard }}>
-            {cards.map((card, index) => (
-              <div
-                key={card.titulo}
-                className={`cf-card anim-up ${cfInView ? 'visible' : ''} ${activeCfCard === index ? 'is-active' : ''}`}
-                style={{ transitionDelay: `${index * 120}ms` }}
-              >
-                <div className="cf-icon">{card.icon}</div>
-                <h3 className="cf-titulo">{card.titulo.toUpperCase()}</h3>
-                <p className="cf-desc">{card.desc}</p>
-              </div>
-            ))}
+        <div className="hero-inner">
+          <div className="hero-card">
+            <h1 className="script hero-titulo">Sabor que surpreende</h1>
+            <p className="hero-desc">
+              Quitutes artesanais preparados com muito carinho,
+              para adoçar cada momento especial.
+            </p>
+            <div className="hero-actions">
+              <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
+                Pedir pelo iFood
+              </a>
+              <a href="#cardapio" className="btn btn--purple" onClick={emBreve}>
+                Ver o Cardápio
+              </a>
+            </div>
           </div>
         </div>
-        <div className="cf-dots" aria-label="Navegação dos cards">
-          {cards.map((card, index) => (
+
+        <div className="hero-dots" role="tablist" aria-label="Destaques">
+          {heroSlides.map((item, index) => (
             <button
-              key={card.titulo}
+              key={item.src}
               type="button"
-              className={`cf-dot ${activeCfCard === index ? 'is-active' : ''}`}
-              onClick={() => setActiveCfCard(index)}
-              aria-label={`Mostrar card ${index + 1}`}
+              role="tab"
+              aria-selected={slide === index}
+              aria-label={`Mostrar ${item.alt}`}
+              className={`hero-dot ${slide === index ? 'is-active' : ''}`}
+              onClick={() => setSlide(index)}
             />
           ))}
         </div>
       </section>
 
-      <section className="produtos" ref={prodRef}>
-        <div className="section-wrap">
-          <div className={`section-head anim-up ${prodInView ? 'visible' : ''}`}>
-            <p className="section-eyebrow">— O que fazemos —</p>
-            <h2 className="section-title">Alguns de nossos quitutes</h2>
-            <p className="section-sub">
-              Uma pequena amostra do que preparamos com amor todos os dias.
+      {/* ---------------- COMO FUNCIONA ---------------- */}
+      <section className="como-funciona" ref={cfRef}>
+        <div className="section-shell cf-grid">
+          {cards.map((card, index) => (
+            <article
+              key={card.titulo}
+              className={`cf-card anim-up ${cfInView ? 'visible' : ''}`}
+              style={{ transitionDelay: `${index * 120}ms` }}
+            >
+              <div className="cf-icon">
+                <img src={card.icon} alt="" loading="lazy" decoding="async" />
+              </div>
+              <h3 className="cf-titulo">{card.titulo}</h3>
+              <p className="cf-desc">{card.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------- PRODUTOS ---------------- */}
+      <section className="produtos" id="cardapio" ref={prodRef}>
+        <div className="section-shell">
+          <div className={`produtos-head anim-up ${prodInView ? 'visible' : ''}`}>
+            <h2 className="script produtos-titulo">Alguns de nossos quitutes</h2>
+            <p className="produtos-sub">
+              Uma pequena amostra do que preparamos com amor todos os dias
+              e também daqueles de edição limitada.
             </p>
           </div>
-          <div
-            ref={productsMarqueeRef}
-            className="produtos-marquee"
-            onTouchStart={pauseProductsMarquee}
-            onTouchEnd={resumeProductsMarquee}
-            onMouseDown={pauseProductsMarquee}
-            onMouseUp={resumeProductsMarquee}
-            onMouseLeave={resumeProductsMarquee}
-          >
-            <div className="produtos-grid">
-              {produtos.map((produto, index) => (
-                <ProductCard key={`${produto.nome}-clone-start`} {...produto} delay={index * 100} clone />
-              ))}
-              {produtos.map((produto, index) => (
-                <ProductCard key={produto.nome} {...produto} delay={index * 100} />
-              ))}
-              {produtos.map((produto, index) => (
-                <ProductCard key={`${produto.nome}-clone-end`} {...produto} delay={index * 100} clone />
-              ))}
-            </div>
+        </div>
+
+        <div className="produtos-marquee">
+          <div className="produtos-trilha">
+            {produtos.map((produto) => <ProductCard key={produto.nome} {...produto} />)}
           </div>
         </div>
       </section>
 
+      {/* ---------------- ENTREGAS ---------------- */}
       <section className="entregas" ref={entRef}>
-        <div className={`entregas-img anim-left ${entInView ? 'visible' : ''}`}>
-          {!entregaErr ? (
-            <img
-              src={ENTREGA_IMAGE}
-              alt="Entregas rápidas"
-              loading="lazy"
-              decoding="async"
-              onError={() => setEntregaErr(true)}
-            />
-          ) : (
-            <div className="hero-img-fallback">🛵</div>
-          )}
+        <div className="section-shell entregas-inner">
+          <div className={`entregas-text anim-left ${entInView ? 'visible' : ''}`}>
+            <p className="entregas-eyebrow">Saboreie a conveniência</p>
+            <h2 className="script entregas-titulo">Entregas Rápidas</h2>
+            <p className="entregas-desc">
+              Desfrute da praticidade de receber os nossos quitutes no conforto
+              do seu lar. Faça agora o seu pedido e saboreie quitutes deliciosos.
+            </p>
+          </div>
+
+          <div className={`entregas-visual anim-right ${entInView ? 'visible' : ''}`}>
+            <img src="/images/brand/sacola.png" alt="Sacola A Dona dos Quitutes" loading="lazy" decoding="async" />
+          </div>
         </div>
-        <div className={`entregas-text anim-right ${entInView ? 'visible' : ''}`}>
-          <h2 className="entregas-titulo">Entregas Rápidas</h2>
-          <p className="entregas-subtitulo">Saboreie a conveniência</p>
-          <p className="entregas-desc">
-            Desfrute da praticidade de receber os nossos quitutes no conforto do seu lar.
-            Faça agora o seu pedido e saboreie quitutes deliciosos.
-          </p>
-          <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-entregas">
-            Fazer Pedido
-          </a>
+
+        <div className="entregas-actions">
+          <div className="section-shell entregas-actions-inner">
+            <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--gold">
+              Pedir pelo iFood
+            </a>
+            <a href="#cardapio" className="btn btn--ghost-cream" onClick={emBreve}>
+              Ver o Cardápio
+            </a>
+          </div>
         </div>
       </section>
 
+      {/* ---------------- SOBRE ---------------- */}
       <section className="sobre" ref={sobreRef}>
-        <div className="sobre-inner">
-          <div className={`sobre-visual anim-left ${sobreInView ? 'visible' : ''}`} aria-hidden="true">
-            <div className="sobre-blob">
+        <div className="section-shell sobre-inner">
+          <div className={`sobre-visual anim-left ${sobreInView ? 'visible' : ''}`}>
+            <div className="sobre-circulo">
               <img
-                src={SOBRE_IMAGE}
-                alt="Confeiteira"
-                className="sobre-img"
+                src="/images/brand/personagem2.png"
+                alt="Confeiteira da Dona dos Quitutes"
                 loading="lazy"
                 decoding="async"
               />
             </div>
           </div>
+
           <div className={`sobre-text anim-right ${sobreInView ? 'visible' : ''}`}>
-            <p className="section-eyebrow" style={{ color: 'var(--yellow)', opacity: 0.75 }}>— Nossa história —</p>
-            <h2 className="sobre-titulo">
-              Nascemos da paixão<br /><em>pelos sabores</em>
+            <h2 className="script sobre-titulo">
+              <span className="sobre-titulo-1">Nascemos da</span>
+              <span className="sobre-titulo-2">paixão pelos sabores</span>
             </h2>
             <p className="sobre-desc">
-              A Dona dos Quitutes nasceu do desejo de compartilhar receitas
-              artesanais cheias de sabor e carinho. Cada doce é preparado com
-              ingredientes frescos e muito amor, do início ao fim.
+              A Dona dos Quitutes nasceu do desejo de compartilhar receitas artesanais
+              cheias de sabor e carinho. Cada doce é preparado com ingredientes frescos
+              e muito amor, do início ao fim.
             </p>
             <p className="sobre-desc">
               Estamos prontos para tornar o seu dia mais doce e especial.
             </p>
-            <a href="#contato" className="btn-sobre">Onde nos encontrar →</a>
+            <a href="#contato" className="sobre-link">Onde nos encontrar -&gt;</a>
           </div>
         </div>
       </section>
 
       <InstagramFeed />
 
+      {/* ---------------- CONTATO ---------------- */}
       <section className="contato" id="contato" ref={contatoRef}>
-        <div className="contato-inner">
-          <div className={`contato-head anim-up ${contatoInView ? 'visible' : ''}`}>
-            <p className="section-eyebrow" style={{ color: 'var(--yellow)', opacity: 0.75 }}>— Fale conosco —</p>
-            <h2 className="contato-titulo">Onde nos encontrar</h2>
-          </div>
+        <div className="section-shell">
+          <h2 className={`script contato-titulo anim-up ${contatoInView ? 'visible' : ''}`}>
+            Onde nos Encontrar
+          </h2>
 
           <div className="contato-grid">
-            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '0ms' }}>
-              <div className="contato-card-icon">
+            <article className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '80ms' }}>
+              <span className="contato-icone">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
+                  <circle cx="12" cy="12" r="9" />
+                  <polyline points="12 7 12 12 15.5 14" />
                 </svg>
-              </div>
+              </span>
               <h3 className="contato-card-titulo">Horários</h3>
               <p>Dom – Qui: 8h às 21h</p>
               <p>Sex – Sáb: 8h às 23h</p>
-            </div>
+            </article>
 
-            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
-              <div className="contato-card-icon">
+            <a
+              className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`}
+              style={{ transitionDelay: '180ms' }}
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="contato-icone">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.09 6.09l1.08-1.08a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-              </div>
+              </span>
               <h3 className="contato-card-titulo">WhatsApp</h3>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">{WHATSAPP_NUMBER}</a>
-              <p>Atendimento por mensagem.</p>
-            </div>
+              <p>{WHATSAPP_NUMBER}</p>
+              <p className="contato-card-nota">Atendimento por mensagem.</p>
+            </a>
 
-            <div className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
-              <div className="contato-card-icon">
+            <a
+              className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`}
+              style={{ transitionDelay: '280ms' }}
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="contato-icone">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
                   <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
                 </svg>
-              </div>
+              </span>
               <h3 className="contato-card-titulo">Instagram</h3>
-              <a href="https://instagram.com/adonadosquitutes" target="_blank" rel="noopener noreferrer">@adonadosquitutes</a>
-            </div>
+              <p>{INSTAGRAM_HANDLE}</p>
+            </a>
           </div>
 
-          <div className={`contato-ifood anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
-            <p className="contato-ifood-text">Prefere pedir pelo iFood?</p>
-            <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-contato-ifood">
+          <div className={`contato-ifood anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '360ms' }}>
+            <p>Prefere pedir pelo iFood?</p>
+            <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--white">
               Abrir no iFood
             </a>
           </div>
-        </div>
-      </section>
-
-      <section className="pedir">
-        <div className="pedir-inner">
-          <div className="pedir-text">
-            <h2 className="pedir-titulo">Pronto para pedir?</h2>
-            <p className="pedir-sub">
-              Peça pelo iFood e receba nossos quitutes fresquinhos onde você estiver.
-            </p>
-          </div>
-          <a href={IFOOD} target="_blank" rel="noopener noreferrer" className="btn-pedir">
-            Abrir no iFood
-          </a>
         </div>
       </section>
     </div>

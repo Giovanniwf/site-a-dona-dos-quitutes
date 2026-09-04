@@ -1,2 +1,5 @@
 export const WHATSAPP_NUMBER = '+55 19 99949-3444'
 export const WHATSAPP_LINK = 'https://wa.me/5519999493444'
+export const INSTAGRAM_HANDLE = '@adonadosquitutes'
+export const INSTAGRAM_LINK = 'https://instagram.com/adonadosquitutes'
+export const IFOOD_LINK = 'https://www.ifood.com.br/delivery/paulinia-sp/a-dona-dos-quitutes---confeitaria-artesanal-jardim-america/84ab3b0f-1d9c-4676-9cd5-b750085f2a4c'

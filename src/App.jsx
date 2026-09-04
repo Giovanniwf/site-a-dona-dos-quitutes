@@ -23,7 +23,7 @@ function App() {
         <div className="app-splash-mark">
           <div className="app-splash-glow" />
           <img
-            src="/logo.png"
+            src="/images/brand/logo-roxo.png"
             alt="A Dona dos Quitutes"
             className="app-splash-logo"
             fetchPriority="high"
