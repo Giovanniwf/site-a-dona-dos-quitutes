@@ -3,3 +3,17 @@
 /.git/* /404.html 404
 /xmlrpc.php /404.html 404
 /phpmyadmin /404.html 404
+
+# Links antigos para as imagens pesadas apontam para as versoes otimizadas.
+# No Netlify estas regras nunca valiam, porque os arquivos originais continuam
+# em dist/images/ e la um asset existente vence o redirect. No Cloudflare o
+# redirect vence sempre, entao a partir de agora elas passam a funcionar de
+# fato — que era a intencao original.
+/images/Tortafundo.png  /images/optimized/hero-torta.png  301
+/images/entrega.png     /images/optimized/entrega.png     301
+/images/perfil2.png     /images/optimized/sobre.png       301
+/images/produto1.jpg    /images/optimized/produto1.jpg    301
+/images/produto2.jpg    /images/optimized/produto2.jpg    301
+/images/produto3.jpg    /images/optimized/produto3.jpg    301
+/images/produto4.jpg    /images/optimized/produto4.jpg    301
+/logo.png               /logo-optimized.png               301
