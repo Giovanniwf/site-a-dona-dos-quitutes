@@ -6,7 +6,10 @@ import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import './App.css'
 
-function App() {
+// Conteudo do site sem o roteador. Fica separado para a pre-renderizacao do
+// build poder montar a mesma arvore com um MemoryRouter no Node (o
+// BrowserRouter depende de window/history e nao roda fora do navegador).
+export function AppContent() {
   const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
@@ -18,7 +21,7 @@ function App() {
   }, [])
 
   return (
-    <BrowserRouter>
+    <>
       <div className={`app-splash ${showSplash ? 'is-visible' : 'is-hidden'}`} aria-hidden={!showSplash}>
         <div className="app-splash-mark">
           <div className="app-splash-glow" />
@@ -39,6 +42,14 @@ function App() {
       </main>
       <WhatsAppButton />
       <Footer />
+    </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   )
 }

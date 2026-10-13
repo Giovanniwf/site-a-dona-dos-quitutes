@@ -46,6 +46,11 @@ export default function Footer() {
         </div>
       </div>
 
+      <p className="footer-resumo">
+        Confeitaria artesanal em Paulínia-SP: cookies, brownies, pão de mel e tortinhas
+        feitos à mão. Peça pelo WhatsApp ou pelo iFood e receba em casa.
+      </p>
+
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} A Dona dos Quitutes</p>
         <a href="https://zeoxy.com.br" target="_blank" rel="noopener noreferrer" className="footer-zeoxy">

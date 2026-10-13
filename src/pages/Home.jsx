@@ -20,16 +20,19 @@ const heroSlides = [
 const cards = [
   {
     icon: '/images/brand/icone1.png',
+    iconAlt: 'Celular com o aplicativo de pedidos da Dona dos Quitutes',
     titulo: 'Faça seu pedido online',
     desc: 'Peça seus quitutes favoritos de forma rápida e prática, sem sair de casa.',
   },
   {
     icon: '/images/brand/icone2.png',
+    iconAlt: 'Moto de entrega da Dona dos Quitutes',
     titulo: 'Receba no conforto do seu lar',
     desc: 'Realizamos entregas rápidas e seguras para que você possa desfrutar dos nossos quitutes no conforto da sua casa.',
   },
   {
     icon: '/images/brand/icone3.png',
+    iconAlt: 'Cookie artesanal com gotas de chocolate',
     titulo: 'Saboreie cada momento',
     desc: 'Aproveite nossos quitutes fresquinhos, feitos com carinho, para tornar seu dia ainda mais especial.',
   },
@@ -56,7 +59,7 @@ function ProductCard({ src, nome, desc }) {
         {!err ? (
           <img
             src={src}
-            alt={nome}
+            alt={`${nome} — ${desc}`}
             className="produto-img"
             loading="lazy"
             decoding="async"
@@ -111,7 +114,12 @@ export default function Home() {
 
         <div className="hero-inner">
           <div className="hero-card">
-            <h1 className="script hero-titulo">Sabor que surpreende</h1>
+            <h1 className="script hero-titulo">
+              Sabor que surpreende
+              <span className="sr-only">
+                {' '}— A Dona dos Quitutes, confeitaria artesanal em Paulínia-SP
+              </span>
+            </h1>
             <p className="hero-desc">
               Quitutes artesanais preparados com muito carinho,
               para adoçar cada momento especial.
@@ -144,6 +152,7 @@ export default function Home() {
 
       {/* ---------------- COMO FUNCIONA ---------------- */}
       <section className="como-funciona" ref={cfRef}>
+        <h2 className="sr-only">Como pedir os nossos quitutes</h2>
         <div className="section-shell cf-grid">
           {cards.map((card, index) => (
             <article
@@ -152,7 +161,7 @@ export default function Home() {
               style={{ transitionDelay: `${index * 120}ms` }}
             >
               <div className="cf-icon">
-                <img src={card.icon} alt="" loading="lazy" decoding="async" />
+                <img src={card.icon} alt={card.iconAlt} loading="lazy" decoding="async" />
               </div>
               <h3 className="cf-titulo">{card.titulo}</h3>
               <p className="cf-desc">{card.desc}</p>
