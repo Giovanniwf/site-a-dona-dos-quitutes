@@ -196,6 +196,114 @@
   line-height: 1.6;
 }
 
+/* ---------------- NOSSA LOJA ---------------- */
+
+.loja {
+  background: var(--purple);
+  padding: 72px 0 78px;
+}
+
+.loja-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 48px;
+}
+
+.loja-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.loja-visual img {
+  width: min(100%, 420px);
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 6px solid var(--gold);
+  box-shadow: 0 26px 46px rgba(0, 0, 0, 0.32);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+}
+
+.loja-visual:hover img {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 34px 56px rgba(0, 0, 0, 0.4);
+}
+
+.loja-eyebrow {
+  color: var(--gold);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+  margin-bottom: 4px;
+}
+
+.loja-titulo {
+  color: var(--cream);
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  margin-bottom: 16px;
+}
+
+.loja-desc {
+  color: var(--cream);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.65;
+  max-width: 46ch;
+  margin-bottom: 22px;
+}
+
+.loja-endereco {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-style: normal;
+  color: var(--cream);
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.loja-endereco span:first-child {
+  font-weight: 800;
+}
+
+.loja-endereco-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: inherit;
+  width: fit-content;
+  transition: color 0.3s ease;
+}
+
+.loja-endereco-link:hover {
+  color: var(--gold);
+}
+
+.loja-covabra {
+  opacity: 0.9;
+}
+
+.loja-horario {
+  color: var(--cream);
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.loja-horario-rotulo {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+/* selo do Covabra, abaixo do botao de localizacao */
+.loja-selo {
+  margin-top: 20px;
+  margin-left: 2px;
+}
+
+.contato-selo {
+  margin-top: 16px;
+}
+
 /* ---------------- PRODUTOS ---------------- */
 
 .produtos {
@@ -511,6 +619,44 @@
   box-shadow: 0 24px 38px rgba(0, 0, 0, 0.26);
 }
 
+.contato-endereco {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  align-items: center;
+  gap: 22px 30px;
+}
+
+.contato-endereco .contato-icone {
+  margin-bottom: 14px;
+}
+
+.contato-endereco-texto .btn {
+  margin-top: 18px;
+}
+
+/* Mapa do Google embutido (sem chave de API, carregado so quando aparece). */
+.contato-mapa {
+  height: 100%;
+  min-height: 210px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 4px solid var(--purple);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.contato-mapa iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  border: 0;
+}
+
+.contato-covabra {
+  margin-top: 2px;
+}
+
 .contato-icone {
   display: grid;
   place-items: center;
@@ -607,6 +753,17 @@
   .cf-grid { grid-template-columns: 1fr; gap: 130px; }
   .como-funciona { padding-top: 140px; }
 
+  .loja-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .loja-text { text-align: center; }
+  .loja-desc, .loja-endereco { margin-inline: auto; }
+  .loja-endereco { align-items: center; }
+  .loja-selo { margin-inline: auto; }
+  .loja-visual img { width: min(82%, 340px); }
+
   .entregas-inner { grid-template-columns: 1fr; }
   .entregas-text { text-align: center; }
   .entregas-desc { margin-inline: auto; }
@@ -647,6 +804,17 @@
 
   .entregas { padding-top: 56px; }
   .entregas-actions .btn { flex: 1 1 100%; }
+
+  .loja { padding: 56px 0 60px; }
+  .loja-text .btn { width: 100%; }
+
+  .contato-endereco {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .contato-mapa { min-height: 200px; }
+  .contato-endereco .btn { width: 100%; }
 
   .contato-ifood {
     border-radius: 26px;

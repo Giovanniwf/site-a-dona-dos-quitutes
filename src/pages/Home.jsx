@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
+import Covabra from '../components/Covabra'
 import {
+  CARDAPIO_PDF,
+  ENDERECO_BAIRRO,
+  ENDERECO_RUA,
+  HORARIO_LOJA,
   IFOOD_LINK,
   INSTAGRAM_HANDLE,
   INSTAGRAM_LINK,
+  MAPS_EMBED,
+  MAPS_LINK,
   WHATSAPP_LINK,
   WHATSAPP_NUMBER,
 } from '../constants/contact'
@@ -45,11 +52,6 @@ const produtos = [
   { src: '/images/optimized/produto4.jpg', nome: 'Tortinha de Banana', desc: 'Base crocante, banana caramelizada e chantilly fresco.' },
 ]
 
-function emBreve(event) {
-  event.preventDefault()
-  window.alert('Cardápio em breve!')
-}
-
 function ProductCard({ src, nome, desc }) {
   const [err, setErr] = useState(false)
 
@@ -81,6 +83,7 @@ export default function Home() {
   const [slide, setSlide] = useState(0)
 
   const [cfRef, cfInView] = useInView()
+  const [lojaRef, lojaInView] = useInView()
   const [prodRef, prodInView] = useInView()
   const [entRef, entInView] = useInView()
   const [sobreRef, sobreInView] = useInView()
@@ -128,7 +131,7 @@ export default function Home() {
               <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
                 Pedir pelo iFood
               </a>
-              <a href="#cardapio" className="btn btn--purple" onClick={emBreve}>
+              <a href={CARDAPIO_PDF} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
                 Ver o Cardápio
               </a>
             </div>
@@ -167,6 +170,56 @@ export default function Home() {
               <p className="cf-desc">{card.desc}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* ---------------- NOSSA LOJA ---------------- */}
+      <section className="loja" id="loja" ref={lojaRef}>
+        <div className="section-shell loja-inner">
+          <div className={`loja-visual anim-left ${lojaInView ? 'visible' : ''}`}>
+            <img
+              src="/images/brand/loja.png"
+              alt="Fachada da loja A Dona dos Quitutes, com balcão de doces e letreiro iluminado"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div className={`loja-text anim-right ${lojaInView ? 'visible' : ''}`}>
+            <p className="loja-eyebrow">Agora o sabor tem endereço</p>
+            <h2 className="script loja-titulo">Nossa Loja</h2>
+            <p className="loja-desc">
+              Conheça a primeira loja da A Dona dos Quitutes.
+              Nossos quitutes ainda mais perto de você.
+            </p>
+
+            <address className="loja-endereco">
+              <a
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="loja-endereco-link"
+                title="Abrir no Google Maps"
+              >
+                <span>{ENDERECO_RUA}</span>
+                <span>{ENDERECO_BAIRRO}</span>
+                <span className="loja-covabra">
+                  na praça de alimentação do Covabra, Paulínia
+                </span>
+              </a>
+            </address>
+
+            <p className="loja-horario">
+              <span className="loja-horario-rotulo">Horário de funcionamento:</span>
+              {' '}{HORARIO_LOJA}
+            </p>
+
+            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--gold">
+              Ver localização
+            </a>
+
+            <Covabra className="loja-selo" />
+          </div>
         </div>
       </section>
 
@@ -211,7 +264,7 @@ export default function Home() {
             <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--gold">
               Pedir pelo iFood
             </a>
-            <a href="#cardapio" className="btn btn--ghost-cream" onClick={emBreve}>
+            <a href={CARDAPIO_PDF} target="_blank" rel="noopener noreferrer" className="btn btn--ghost-cream">
               Ver o Cardápio
             </a>
           </div>
@@ -260,6 +313,39 @@ export default function Home() {
           </h2>
 
           <div className="contato-grid">
+            <article className={`contato-card contato-endereco anim-up ${contatoInView ? 'visible' : ''}`}>
+              <div className="contato-endereco-texto">
+                <span className="contato-icone">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </span>
+                <h3 className="contato-card-titulo">Endereço</h3>
+                <p>{ENDERECO_RUA}</p>
+                <p>{ENDERECO_BAIRRO}</p>
+                <p className="contato-covabra">
+                  na praça de alimentação do Covabra, Paulínia
+                </p>
+
+                <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
+                  Ver localização
+                </a>
+
+                <Covabra className="contato-selo" />
+              </div>
+
+              <div className="contato-mapa">
+                <iframe
+                  src={MAPS_EMBED}
+                  title="Mapa com a localização da loja A Dona dos Quitutes, no Covabra de Paulínia"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+            </article>
+
             <article className={`contato-card anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '80ms' }}>
               <span className="contato-icone">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -267,9 +353,8 @@ export default function Home() {
                   <polyline points="12 7 12 12 15.5 14" />
                 </svg>
               </span>
-              <h3 className="contato-card-titulo">Horários</h3>
-              <p>Dom – Qui: 8h às 21h</p>
-              <p>Sex – Sáb: 8h às 23h</p>
+              <h3 className="contato-card-titulo">Horário de Funcionamento:</h3>
+              <p>{HORARIO_LOJA}</p>
             </article>
 
             <a

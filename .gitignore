@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Arquivos originais de design que ficam na raiz do projeto. As versoes
+# otimizadas usadas pelo site estao em public/ e vao para o repositorio.
+/Projeto ADDQ.png
+/Card*pio f*sico*.pdf
+/logo covabra.png
+/logo covabra.webp

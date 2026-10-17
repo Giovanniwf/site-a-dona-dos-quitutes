@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { IFOOD_LINK } from '../constants/contact'
+import { CARDAPIO_PDF, IFOOD_LINK } from '../constants/contact'
 import './Header.css'
 
 const LOGO = '/images/brand/logo-creme.png'
@@ -32,20 +32,21 @@ export default function Header() {
 
         <nav className={`nav ${open ? 'nav--open' : ''}`}>
           <a
-            href="#cardapio"
+            href={CARDAPIO_PDF}
+            target="_blank"
+            rel="noopener noreferrer"
             className="nav-link"
-            onClick={(e) => { e.preventDefault(); close(); window.alert('Cardápio em breve!') }}
+            onClick={close}
           >
             Cardápio
+          </a>
+          <a href="#loja" className="nav-link" onClick={close}>
+            Loja
           </a>
           <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="nav-link" onClick={close}>
             iFood
           </a>
-          <a
-            href="#contato"
-            className="nav-link"
-            onClick={(e) => { e.preventDefault(); close(); document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' }) }}
-          >
+          <a href="#contato" className="nav-link" onClick={close}>
             Contato
           </a>
           <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="nav-cta" onClick={close}>

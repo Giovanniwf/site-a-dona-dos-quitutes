@@ -35,6 +35,15 @@
 
 html { scroll-behavior: smooth; }
 
+/* Ao pular para uma secao pelo menu, para abaixo do cabecalho fixo em vez de
+   ficar escondida atras dele. */
+section[id],
+[id='cardapio'],
+[id='contato'],
+[id='loja'] {
+  scroll-margin-top: 96px;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--cream-light);

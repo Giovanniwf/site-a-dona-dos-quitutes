@@ -53,6 +53,25 @@
 
 /* Resumo do negocio: diz em texto o que o site vende, onde atende e como
    pedir — informacao que so existia espalhada em imagens e botoes. */
+.footer-endereco {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.footer-covabra {
+  opacity: 0.85;
+}
+
+.footer-selo {
+  margin-top: 14px;
+}
+
 .footer-resumo {
   width: min(100% - 40px, var(--shell));
   margin: 0 auto 26px;
