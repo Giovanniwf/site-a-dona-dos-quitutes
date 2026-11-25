@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
 import Covabra from '../components/Covabra'
+import { NATAL_COMPARTILHAR, NATAL_INDIVIDUAIS } from '../constants/natal'
 import {
   CARDAPIO_PDF,
   ENDERECO_BAIRRO,
@@ -84,6 +85,7 @@ export default function Home() {
 
   const [cfRef, cfInView] = useInView()
   const [lojaRef, lojaInView] = useInView()
+  const [natalRef, natalInView] = useInView()
   const [prodRef, prodInView] = useInView()
   const [entRef, entInView] = useInView()
   const [sobreRef, sobreInView] = useInView()
@@ -151,6 +153,20 @@ export default function Home() {
             />
           ))}
         </div>
+      </section>
+
+      {/* ---------------- BANNER DE NATAL ---------------- */}
+      <section className="natal-banner">
+        <a href="#natal" className="natal-banner-link">
+          <img
+            src="/images/brand/banner-natal.png"
+            alt="Quitutes de Natal: aberta a agenda de encomendas. Veja o cardápio."
+            width="1081"
+            height="401"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </a>
       </section>
 
       {/* ---------------- COMO FUNCIONA ---------------- */}
@@ -238,6 +254,62 @@ export default function Home() {
         <div className="produtos-marquee">
           <div className="produtos-trilha">
             {produtos.map((produto) => <ProductCard key={produto.nome} {...produto} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- CARDAPIO DE NATAL ---------------- */}
+      <section className="natal" id="natal" ref={natalRef}>
+        <div className="section-shell">
+          <div className={`natal-head anim-up ${natalInView ? 'visible' : ''}`}>
+            <p className="natal-eyebrow">Aberta a agenda de encomendas</p>
+            <h2 className="script natal-titulo">Quitutes de Natal</h2>
+            <p className="natal-sub">
+              Garanta suas delícias com antecedência e deixe a sua ceia ainda mais especial.
+            </p>
+          </div>
+
+          <div className={`natal-grupo anim-up ${natalInView ? 'visible' : ''}`}>
+            <h3 className="natal-grupo-titulo">Para compartilhar</h3>
+            <ul className="natal-lista">
+              {NATAL_COMPARTILHAR.map((item) => (
+                <li key={item.nome} className="natal-item">
+                  <div className="natal-item-topo">
+                    <h4 className="natal-item-nome">{item.nome}</h4>
+                    <span className="natal-item-preco">{`R$ ${item.preco}`}</span>
+                  </div>
+                  <p className="natal-item-medida">{`${item.peso} · ${item.porcoes}`}</p>
+                  <p className="natal-item-desc">{item.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={`natal-grupo anim-up ${natalInView ? 'visible' : ''}`}>
+            <h3 className="natal-grupo-titulo">Individuais</h3>
+            <ul className="natal-lista">
+              {NATAL_INDIVIDUAIS.map((item) => (
+                <li key={item.nome} className="natal-item">
+                  <div className="natal-item-topo">
+                    <h4 className="natal-item-nome">{item.nome}</h4>
+                    <span className="natal-item-preco">{`R$ ${item.preco}`}</span>
+                  </div>
+                  <p className="natal-item-medida">{`${item.peso} · ${item.porcoes}`}</p>
+                  <p className="natal-item-desc">{item.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={`natal-acoes anim-up ${natalInView ? 'visible' : ''}`}>
+            <a
+              href={`${WHATSAPP_LINK}?text=${encodeURIComponent('Olá! Quero encomendar os quitutes de Natal.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--natal"
+            >
+              Fazer pedido no WhatsApp
+            </a>
           </div>
         </div>
       </section>
