@@ -1,0 +1,198 @@
+/* ---------------- JANELA DO CARDAPIO DE NATAL ---------------- */
+
+.natal-modal {
+  /* o reset global do site zera margens; o <dialog> precisa de margin:auto
+     para ficar centralizado na tela */
+  margin: auto;
+  width: min(100% - 32px, 920px);
+  max-height: 88vh;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  overflow: visible;
+}
+
+.natal-modal::backdrop {
+  background: rgba(0, 20, 6, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.natal-modal[open] {
+  animation: natalEntra 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes natalEntra {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.natal-modal-caixa {
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  /* verde da campanha */
+  background: #003d11;
+  color: var(--cream);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.natal-modal-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 28px 14px;
+  border-bottom: 1px solid rgba(240, 223, 196, 0.2);
+}
+
+.natal-fechar {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(240, 223, 196, 0.14);
+  color: var(--cream);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.natal-fechar:hover {
+  background: var(--gold);
+  color: #003d11;
+  transform: rotate(90deg);
+}
+
+.natal-fechar svg { width: 20px; height: 20px; }
+
+.natal-modal-corpo {
+  /* flex:1 + min-height:0 para o corpo encolher e rolar dentro da janela; sem
+     o min-height, o item flex nao fica menor que as paginas e a janela
+     inteira estoura a altura da tela */
+  flex: 1;
+  min-height: 0;
+  padding: 18px 20px 20px;
+  overflow-y: auto;
+}
+
+.natal-modal-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  padding: 16px 28px 20px;
+  border-top: 1px solid rgba(240, 223, 196, 0.2);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.natal-eyebrow {
+  color: var(--gold);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  margin-bottom: 2px;
+}
+
+.natal-titulo {
+  color: var(--cream);
+  font-size: clamp(2.1rem, 4.6vw, 3.1rem);
+  line-height: 1.05;
+}
+
+.natal-sub {
+  color: var(--cream);
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 26px;
+}
+
+/* ---------------- paginas do cardapio ---------------- */
+
+.natal-paginas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.natal-paginas img {
+  width: 100%;
+  /* largura de leitura confortavel: mais que isso e a pagina passa da altura
+     da janela e exige rolar demais para ver uma pagina inteira */
+  max-width: 660px;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  /* evita o arrasto da imagem atrapalhar a rolagem no toque */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* barra de rolagem combinando com o verde da campanha */
+.natal-modal-corpo {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) rgba(0, 0, 0, 0.25);
+  /* a rolagem do cardapio nao deve "vazar" para a pagina atras */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.natal-modal-corpo::-webkit-scrollbar { width: 10px; }
+.natal-modal-corpo::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.25); }
+
+.natal-modal-corpo::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 6px;
+  border: 2px solid #003d11;
+}
+
+/* ---------------- botoes ---------------- */
+
+.btn--natal {
+  background: var(--gold);
+  color: #003d11;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+}
+
+.btn--natal:hover { background: #e0a02a; }
+
+.natal-baixar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cream);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 8px 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.natal-baixar:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.natal-baixar svg { width: 17px; height: 17px; }
+
+/* trava a rolagem do fundo enquanto a janela esta aberta */
+body.sem-rolagem { overflow: hidden; }
+
+@media (max-width: 720px) {
+  /* no celular a janela chega quase na borda: cada pixel a mais ajuda a ler
+     a tabela de precos */
+  .natal-modal { width: calc(100% - 16px); }
+  .natal-modal-topo { padding: 18px 16px 12px; }
+  .natal-modal-corpo { padding: 12px 8px 16px; }
+  .natal-modal-rodape { padding: 14px 18px 18px; }
+  .natal-paginas { gap: 10px; }
+  .natal-modal-rodape .btn { width: 100%; }
+}

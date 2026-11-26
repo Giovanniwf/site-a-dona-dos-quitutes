@@ -1,0 +1,174 @@
+/* ---------------- JANELA "COMO PREFERE PEDIR?" ---------------- */
+
+.pedir-modal {
+  /* o reset global do site zera margens; o <dialog> precisa de margin:auto
+     para ficar centralizado na tela */
+  margin: auto;
+  width: min(100% - 32px, 560px);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  overflow: visible;
+}
+
+.pedir-modal::backdrop {
+  background: rgba(40, 6, 42, 0.68);
+  backdrop-filter: blur(3px);
+}
+
+.pedir-modal[open] {
+  animation: pedirEntra 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pedirEntra {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pedir-modal[open] { animation: none; }
+}
+
+.pedir-modal-caixa {
+  position: relative;
+  padding: 34px 30px 30px;
+  background: var(--purple);
+  color: var(--cream-light);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.42);
+  text-align: center;
+}
+
+.pedir-fechar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(240, 223, 196, 0.14);
+  color: var(--cream);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.pedir-fechar:hover {
+  background: var(--gold);
+  color: var(--white);
+  transform: rotate(90deg);
+}
+
+.pedir-fechar svg { width: 18px; height: 18px; }
+
+.pedir-titulo {
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  line-height: 1.05;
+  color: var(--cream-light);
+}
+
+.pedir-desc {
+  margin-top: 6px;
+  font-size: 1rem;
+  color: rgba(250, 242, 230, 0.78);
+}
+
+.pedir-opcoes {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* cada opcao e' um cartao: nome do app em destaque, uma linha de apoio e a
+   seta. O --cor de cada app entra abaixo e pinta nome, borda e seta. */
+.pedir-opcao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 16px 18px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  background: var(--cream-light);
+  color: var(--purple-deep);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.pedir-opcao:hover {
+  transform: translateY(-3px);
+  border-color: var(--cor);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+}
+
+.pedir-opcao-nome {
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--cor);
+}
+
+.pedir-opcao-desc {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: rgba(75, 13, 78, 0.7);
+}
+
+.pedir-opcao-seta {
+  margin-top: 10px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--cor);
+  color: var(--cor-texto, #fff);
+}
+
+.pedir-opcao-seta svg { width: 17px; height: 17px; }
+
+.pedir-opcao--ifood { --cor: #ea1d2c; }
+
+/* o amarelo do 99 nao tem contraste com texto branco: a seta fica em preto */
+.pedir-opcao--99 {
+  --cor: #0b0b0b;
+  --cor-texto: #ffe700;
+}
+
+.pedir-opcao--99 .pedir-opcao-seta { background: #ffe700; color: #0b0b0b; }
+
+@media (max-width: 520px) {
+  .pedir-modal-caixa { padding: 30px 18px 22px; }
+  .pedir-opcoes { grid-template-columns: 1fr; gap: 12px; }
+
+  /* no celular cada opcao vira uma linha: nome a esquerda, seta a direita */
+  .pedir-opcao {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+    padding: 16px 18px;
+    text-align: left;
+  }
+
+  .pedir-opcao-nome { font-size: 1.35rem; }
+
+  .pedir-opcao-desc {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .pedir-opcao-seta {
+    margin-top: 0;
+    margin-left: auto;
+    order: 2;
+  }
+}

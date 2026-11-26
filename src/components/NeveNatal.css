@@ -1,0 +1,43 @@
+/* Camada de neve: fica sobre o site inteiro, mas nao recebe clique nenhum
+   (pointer-events: none), entao nada do site muda de comportamento. */
+.neve {
+  position: fixed;
+  inset: 0;
+  z-index: 90; /* abaixo do cabecalho (100) e da janela do cardapio */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.neve-floco {
+  position: absolute;
+  top: -20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+  animation-name: neveCai;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes neveCai {
+  from {
+    transform: translate3d(0, -5vh, 0);
+  }
+  to {
+    transform: translate3d(var(--desvio, 20px), 105vh, 0);
+  }
+}
+
+/* No celular a tela e' estreita: menos flocos para nao poluir nem gastar
+   bateria. Esconde dois a cada tres. */
+@media (max-width: 720px) {
+  .neve-floco:nth-child(3n + 2),
+  .neve-floco:nth-child(3n + 3) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neve { display: none; }
+}

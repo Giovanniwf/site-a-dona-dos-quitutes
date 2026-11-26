@@ -4,6 +4,8 @@ export const INSTAGRAM_HANDLE = '@adonadosquitutes'
 export const INSTAGRAM_LINK = 'https://instagram.com/adonadosquitutes'
 export const CARDAPIO_PDF = '/cardapio.pdf'
 export const IFOOD_LINK = 'https://www.ifood.com.br/delivery/paulinia-sp/a-dona-dos-quitutes---confeitaria-artesanal-jardim-america/84ab3b0f-1d9c-4676-9cd5-b750085f2a4c'
+// 99Food: link curto gerado pelo proprio app para a loja.
+export const APP99_LINK = 'https://oia.99app.com/dlp9/4gB0BH'
 
 // Loja fisica
 export const ENDERECO_RUA = 'Av. José Lozano Araújo, 2500 - Loja 24'

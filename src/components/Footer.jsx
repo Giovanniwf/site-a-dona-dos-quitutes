@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Covabra from './Covabra'
 import {
+  APP99_LINK,
   CARDAPIO_PDF,
   ENDERECO_BAIRRO,
   ENDERECO_RUA,
@@ -12,7 +13,7 @@ import {
 } from '../constants/contact'
 import './Footer.css'
 
-export default function Footer() {
+export default function Footer({ onCardapioNatal }) {
   return (
     <footer className="footer">
       <div className="section-shell footer-inner">
@@ -36,8 +37,12 @@ export default function Footer() {
           <a href={CARDAPIO_PDF} target="_blank" rel="noopener noreferrer">
             Cardápio
           </a>
+          <button type="button" className="footer-natal" onClick={onCardapioNatal}>
+            Cardápio de Natal
+          </button>
           <a href="#contato">Contato</a>
           <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer">iFood</a>
+          <a href={APP99_LINK} target="_blank" rel="noopener noreferrer">99Food</a>
         </nav>
 
         <div className="footer-col">
@@ -60,7 +65,7 @@ export default function Footer() {
       <p className="footer-resumo">
         Confeitaria artesanal em Paulínia-SP: cookies, brownies, pão de mel e tortinhas
         feitos à mão. Visite a nossa loja no Covabra de Paulínia ou peça pelo WhatsApp
-        e pelo iFood, com entrega.
+        pelo iFood e pelo 99Food, com entrega.
       </p>
 
       <div className="footer-bottom">

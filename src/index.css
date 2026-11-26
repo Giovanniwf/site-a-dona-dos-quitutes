@@ -104,6 +104,9 @@ img { display: block; max-width: 100%; }
   font-size: 0.98rem;
   line-height: 1;
   border: 2px solid transparent;
+  /* font-family explicita: <button> nao herda a fonte do site sozinho, e os
+     botoes que abrem janelas (pedir, cardapio) usam a mesma classe dos links */
+  font-family: inherit;
   cursor: pointer;
   transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }

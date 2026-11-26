@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import InstagramFeed from '../components/InstagramFeed'
 import Covabra from '../components/Covabra'
-import { NATAL_COMPARTILHAR, NATAL_INDIVIDUAIS } from '../constants/natal'
 import {
   CARDAPIO_PDF,
   ENDERECO_BAIRRO,
   ENDERECO_RUA,
   HORARIO_LOJA,
-  IFOOD_LINK,
   INSTAGRAM_HANDLE,
   INSTAGRAM_LINK,
   MAPS_EMBED,
@@ -80,12 +78,11 @@ function ProductCard({ src, nome, desc }) {
   )
 }
 
-export default function Home() {
+export default function Home({ onCardapioNatal, onPedir }) {
   const [slide, setSlide] = useState(0)
 
   const [cfRef, cfInView] = useInView()
   const [lojaRef, lojaInView] = useInView()
-  const [natalRef, natalInView] = useInView()
   const [prodRef, prodInView] = useInView()
   const [entRef, entInView] = useInView()
   const [sobreRef, sobreInView] = useInView()
@@ -130,9 +127,9 @@ export default function Home() {
               para adoçar cada momento especial.
             </p>
             <div className="hero-actions">
-              <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
-                Pedir pelo iFood
-              </a>
+              <button type="button" className="btn btn--purple" onClick={onPedir}>
+                Pedir agora
+              </button>
               <a href={CARDAPIO_PDF} target="_blank" rel="noopener noreferrer" className="btn btn--purple">
                 Ver o Cardápio
               </a>
@@ -157,16 +154,16 @@ export default function Home() {
 
       {/* ---------------- BANNER DE NATAL ---------------- */}
       <section className="natal-banner">
-        <a href="#natal" className="natal-banner-link">
+        <button type="button" className="natal-banner-link" onClick={onCardapioNatal}>
           <img
             src="/images/brand/banner-natal.png"
             alt="Quitutes de Natal: aberta a agenda de encomendas. Veja o cardápio."
             width="1081"
             height="401"
-            fetchPriority="high"
+            loading="lazy"
             decoding="async"
           />
-        </a>
+        </button>
       </section>
 
       {/* ---------------- COMO FUNCIONA ---------------- */}
@@ -258,62 +255,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- CARDAPIO DE NATAL ---------------- */}
-      <section className="natal" id="natal" ref={natalRef}>
-        <div className="section-shell">
-          <div className={`natal-head anim-up ${natalInView ? 'visible' : ''}`}>
-            <p className="natal-eyebrow">Aberta a agenda de encomendas</p>
-            <h2 className="script natal-titulo">Quitutes de Natal</h2>
-            <p className="natal-sub">
-              Garanta suas delícias com antecedência e deixe a sua ceia ainda mais especial.
-            </p>
-          </div>
-
-          <div className={`natal-grupo anim-up ${natalInView ? 'visible' : ''}`}>
-            <h3 className="natal-grupo-titulo">Para compartilhar</h3>
-            <ul className="natal-lista">
-              {NATAL_COMPARTILHAR.map((item) => (
-                <li key={item.nome} className="natal-item">
-                  <div className="natal-item-topo">
-                    <h4 className="natal-item-nome">{item.nome}</h4>
-                    <span className="natal-item-preco">{`R$ ${item.preco}`}</span>
-                  </div>
-                  <p className="natal-item-medida">{`${item.peso} · ${item.porcoes}`}</p>
-                  <p className="natal-item-desc">{item.desc}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={`natal-grupo anim-up ${natalInView ? 'visible' : ''}`}>
-            <h3 className="natal-grupo-titulo">Individuais</h3>
-            <ul className="natal-lista">
-              {NATAL_INDIVIDUAIS.map((item) => (
-                <li key={item.nome} className="natal-item">
-                  <div className="natal-item-topo">
-                    <h4 className="natal-item-nome">{item.nome}</h4>
-                    <span className="natal-item-preco">{`R$ ${item.preco}`}</span>
-                  </div>
-                  <p className="natal-item-medida">{`${item.peso} · ${item.porcoes}`}</p>
-                  <p className="natal-item-desc">{item.desc}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={`natal-acoes anim-up ${natalInView ? 'visible' : ''}`}>
-            <a
-              href={`${WHATSAPP_LINK}?text=${encodeURIComponent('Olá! Quero encomendar os quitutes de Natal.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--natal"
-            >
-              Fazer pedido no WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ---------------- ENTREGAS ---------------- */}
       <section className="entregas" ref={entRef}>
         <div className="section-shell entregas-inner">
@@ -333,9 +274,9 @@ export default function Home() {
 
         <div className="entregas-actions">
           <div className="section-shell entregas-actions-inner">
-            <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--gold">
-              Pedir pelo iFood
-            </a>
+            <button type="button" className="btn btn--gold" onClick={onPedir}>
+              Pedir agora
+            </button>
             <a href={CARDAPIO_PDF} target="_blank" rel="noopener noreferrer" className="btn btn--ghost-cream">
               Ver o Cardápio
             </a>
@@ -349,8 +290,8 @@ export default function Home() {
           <div className={`sobre-visual anim-left ${sobreInView ? 'visible' : ''}`}>
             <div className="sobre-circulo">
               <img
-                src="/images/brand/personagem2.png"
-                alt="Confeiteira da Dona dos Quitutes"
+                src="/images/brand/personagem-natal.png"
+                alt="Confeiteira da Dona dos Quitutes com gorro de Natal"
                 loading="lazy"
                 decoding="async"
               />
@@ -465,11 +406,11 @@ export default function Home() {
             </a>
           </div>
 
-          <div className={`contato-ifood anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '360ms' }}>
-            <p>Prefere pedir pelo iFood?</p>
-            <a href={IFOOD_LINK} target="_blank" rel="noopener noreferrer" className="btn btn--white">
-              Abrir no iFood
-            </a>
+          <div className={`contato-pedir anim-up ${contatoInView ? 'visible' : ''}`} style={{ transitionDelay: '360ms' }}>
+            <p>Prefere pedir por delivery?</p>
+            <button type="button" className="btn btn--white" onClick={onPedir}>
+              Pedir agora
+            </button>
           </div>
         </div>
       </section>

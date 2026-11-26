@@ -422,150 +422,51 @@
   line-height: 1.5;
 }
 
-/* ---------------- CAMPANHA DE NATAL ---------------- */
+/* ---------------- BANNER DA CAMPANHA DE NATAL ---------------- */
 
-/* verde da campanha, informado pela cliente */
+/* A arte tem 1081x401 e nao sobra margem vazia nenhuma (medido no arquivo),
+   entao "mais fino" aqui e' exibir mais estreito, nao recortar a altura. */
 .natal-banner {
-  background: #003d11;
+  /* verde da campanha + brilho atras da arte e estrelinhas no mesmo estilo
+     dela, para o verde das laterais nao ficar um bloco chapado */
+  background-color: #003d11;
+  background-image:
+    radial-gradient(ellipse 60% 120% at 50% 50%, rgba(214, 170, 90, 0.16), rgba(0, 61, 17, 0) 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='180' viewBox='0 0 260 180'%3E%3Cg fill='%23f0dfc4' opacity='0.5'%3E%3Cpath d='M40 20c1.4 6.6 2.6 7.8 9.2 9.2-6.6 1.4-7.8 2.6-9.2 9.2-1.4-6.6-2.6-7.8-9.2-9.2 6.6-1.4 7.8-2.6 9.2-9.2z'/%3E%3Cpath d='M186 54c1 4.7 1.9 5.6 6.6 6.6-4.7 1-5.6 1.9-6.6 6.6-1-4.7-1.9-5.6-6.6-6.6 4.7-1 5.6-1.9 6.6-6.6z'/%3E%3Cpath d='M104 128c1.2 5.6 2.2 6.6 7.8 7.8-5.6 1.2-6.6 2.2-7.8 7.8-1.2-5.6-2.2-6.6-7.8-7.8 5.6-1.2 6.6-2.2 7.8-7.8z'/%3E%3Cpath d='M232 140c.8 3.8 1.5 4.5 5.3 5.3-3.8.8-4.5 1.5-5.3 5.3-.8-3.8-1.5-4.5-5.3-5.3 3.8-.8 4.5-1.5 5.3-5.3z'/%3E%3Ccircle cx='150' cy='18' r='2'/%3E%3Ccircle cx='68' cy='88' r='1.6'/%3E%3Ccircle cx='214' cy='96' r='1.8'/%3E%3Ccircle cx='18' cy='152' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat, repeat;
+  background-position: center, center;
+  background-size: 1200px 100%, 260px 180px;
   display: flex;
   justify-content: center;
+  padding: 26px 20px;
 }
 
 .natal-banner-link {
   display: block;
   width: 100%;
-  max-width: 1081px;
-  transition: filter 0.35s ease;
+  max-width: 760px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+}
+
+.natal-banner-link {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
 }
 
 .natal-banner-link:hover {
-  filter: brightness(1.07);
+  transform: translateY(-3px);
+  filter: brightness(1.08);
 }
 
 .natal-banner-link img {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.natal {
-  background: #003d11;
-  color: var(--cream);
-  padding: 74px 0 80px;
-}
-
-.natal-head {
-  text-align: center;
-  margin-bottom: 42px;
-}
-
-.natal-eyebrow {
-  color: var(--gold);
-  font-weight: 800;
-  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-  margin-bottom: 4px;
-}
-
-.natal-titulo {
-  color: var(--cream);
-  font-size: clamp(2.6rem, 6vw, 4.4rem);
-  margin-bottom: 12px;
-}
-
-.natal-sub {
-  color: var(--cream);
-  font-size: clamp(1rem, 1.5vw, 1.12rem);
-  line-height: 1.6;
-  max-width: 52ch;
-  margin-inline: auto;
-  opacity: 0.92;
-}
-
-.natal-grupo { margin-bottom: 38px; }
-
-.natal-grupo-titulo {
-  color: var(--gold);
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid rgba(240, 223, 196, 0.25);
-}
-
-.natal-lista {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 34px;
-}
-
-.natal-item {
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(240, 223, 196, 0.16);
-}
-
-.natal-item-topo {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.natal-item-nome {
-  color: var(--cream);
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-
-.natal-item-preco {
-  color: var(--gold);
-  font-size: 1.2rem;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.natal-item-medida {
-  color: var(--gold);
-  font-size: 0.86rem;
-  font-weight: 700;
-  margin-top: 2px;
-}
-
-.natal-item-desc {
-  color: var(--cream);
-  font-size: 0.92rem;
-  line-height: 1.55;
-  margin-top: 6px;
-  opacity: 0.85;
-}
-
-.natal-acoes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-.btn--natal {
-  background: var(--gold);
-  color: #003d11;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
-}
-
-.btn--natal:hover { background: #e0a02a; }
-
-.btn--natal-vazado {
-  background: transparent;
-  color: var(--cream);
-  border-color: var(--cream);
-}
-
-.btn--natal-vazado:hover {
-  background: var(--cream);
-  color: #003d11;
 }
 
 /* ---------------- ENTREGAS ---------------- */
@@ -672,7 +573,7 @@
 /* A personagem extrapola o circulo por cima (bracos livres) e, da metade para
    baixo, e' recortada pela propria curva do circulo - assim o corte reto do PNG
    nao aparece. Duas camadas de mascara: retangulo no topo + elipse do circulo.
-   Numeros derivados da proporcao da arte (640x969) com width:92% e bottom:0. */
+   Numeros derivados da proporcao da arte (2:3) com width:92% e bottom:0. */
 .sobre-circulo img {
   position: absolute;
   left: 50%;
@@ -681,6 +582,7 @@
   width: 92%;
   max-width: none;
   height: auto;
+  display: block;
   -webkit-mask-image:
     linear-gradient(#000 0 0),
     radial-gradient(54.4% 35.9% at 50% 64.1%, #000 99%, rgba(0, 0, 0, 0) 100%);
@@ -841,7 +743,7 @@
   margin-top: 4px;
 }
 
-.contato-ifood {
+.contato-pedir {
   background: var(--pink);
   border-radius: 999px;
   padding: 14px 16px 14px 34px;
@@ -852,7 +754,7 @@
   gap: 14px;
 }
 
-.contato-ifood p {
+.contato-pedir p {
   color: var(--white);
   font-weight: 800;
   font-size: 1.15rem;
@@ -910,8 +812,6 @@
   .loja-selo { margin-inline: auto; }
   .loja-visual img { width: min(82%, 340px); }
 
-  .natal-lista { grid-template-columns: 1fr; }
-
   .entregas-inner { grid-template-columns: 1fr; }
   .entregas-text { text-align: center; }
   .entregas-desc { margin-inline: auto; }
@@ -964,15 +864,14 @@
   .contato-mapa { min-height: 200px; }
   .contato-endereco .btn { width: 100%; }
 
-  .natal { padding: 56px 0 62px; }
-  .natal-acoes .btn { width: 100%; }
+  .natal-banner { padding: 8px 14px; }
 
-  .contato-ifood {
+  .contato-pedir {
     border-radius: 26px;
     padding: 22px;
     flex-direction: column;
     text-align: center;
   }
 
-  .contato-ifood .btn { width: 100%; }
+  .contato-pedir .btn { width: 100%; }
 }

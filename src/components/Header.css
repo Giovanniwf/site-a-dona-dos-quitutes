@@ -35,7 +35,8 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  /* o espacamento acompanha a largura: sao sete itens no menu */
+  gap: clamp(15px, 1.9vw, 30px);
 }
 
 .nav-link {
@@ -59,8 +60,47 @@
 
 .nav-link:hover::after { width: 100%; }
 
+/* Chamada da campanha de Natal: verde e dourado para destacar do roxo do
+   cabecalho, com um brilho suave que chama o olho sem piscar agressivo. */
+.nav-natal {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 22px 8px;
+  border-radius: 999px;
+  border: 2px solid var(--gold);
+  background: #003d11;
+  color: var(--gold);
+  /* mesma cursiva dos titulos do site (Viktor Script) */
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  cursor: pointer;
+  white-space: nowrap;
+  animation: natalBrilho 2.8s ease-in-out infinite;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-natal:hover {
+  background: var(--gold);
+  color: #003d11;
+  transform: translateY(-2px);
+  animation: none;
+}
+
+@keyframes natalBrilho {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(204, 132, 23, 0); }
+  50%      { box-shadow: 0 0 14px 2px rgba(204, 132, 23, 0.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-natal { animation: none; }
+}
+
 .nav-cta {
   padding: 12px 26px;
+  font-family: inherit;
+  cursor: pointer;
   border-radius: 999px;
   background: var(--cream-light);
   border: 2px solid var(--cream-light);
@@ -131,7 +171,7 @@
   }
 
   .nav--open {
-    max-height: 340px;
+    max-height: 460px;
     padding: 10px 20px 24px;
   }
 
@@ -140,8 +180,15 @@
     border-bottom: 1px solid rgba(240, 223, 196, 0.2);
   }
 
+  .nav-natal {
+    margin-top: 14px;
+    justify-content: center;
+    width: 100%;
+  }
+
   .nav-cta {
     margin-top: 18px;
+    width: 100%;
     text-align: center;
   }
 }
